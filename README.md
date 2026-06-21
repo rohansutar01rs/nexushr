@@ -1,90 +1,180 @@
-# ============================================================
 # NexusHR - Running Instructions
-# ============================================================
+
+## Overview
+
+NexusHR is a standalone microservices-based HR management platform consisting of:
+
+* API Gateway
+* Authentication Service
+* Employee Service
+* Payroll Service
+* React + Vite Frontend
+
+The application uses an H2 in-memory database and in-memory token cache, so no external database or Redis setup is required.
+
+---
 
 ## Prerequisites
 
-1. **Java 21 (JDK)** - Ensure `java` is in your PATH.
-2. **Maven** - Will be auto-downloaded by the included `mvnw.cmd` wrapper if you don't have it.
+Ensure the following are installed and available in your system PATH:
 
-*Note: This project is fully standalone. It uses an H2 in-memory database and an in-memory token cache. No external database (PostgreSQL) or cache (Redis) installations are required!*
+* Java 21 (JDK)
+* Node.js and npm
 
-## Quick Start
+> Maven installation is optional. The included Maven Wrapper (`mvnw.cmd`) automatically downloads and uses the required Maven version.
 
-### Step 1: Build the project
+---
 
-Open a terminal in the `nexushr` folder and run:
+## Project Structure
+
+```text
+nexushr/
+├── api-gateway/
+├── auth-service/
+├── employee-service/
+├── payroll-service/
+├── frontend/
+├── mvnw.cmd
+├── pom.xml
+├── package.json
+└── docker-compose.yml
+```
+
+---
+
+## Initial Setup
+
+Install frontend and root dependencies:
+
+```powershell
+npm install
+
+cd frontend
+npm install
+
+cd ..
+```
+
+Build all backend services:
 
 ```powershell
 .\mvnw.cmd clean compile -DskipTests
 ```
 
-This will auto-download Maven if not installed and build the whole project.
+---
 
-### Step 2: Run Each Service
+## Run the Entire Application
 
-Open **separate terminals** for each service:
+From the project root directory, start all services with a single command:
 
-**Terminal 1 - Auth Service (port 8081):**
 ```powershell
-.\mvnw.cmd -pl auth-service spring-boot:run
-```
-
-**Terminal 2 - Employee Service (port 8082):**
-```powershell
-.\mvnw.cmd -pl employee-service spring-boot:run
-```
-
-**Terminal 3 - Payroll Service (port 8083):**
-```powershell
-.\mvnw.cmd -pl payroll-service spring-boot:run
-```
-
-**Terminal 4 - API Gateway (port 8080):**
-```powershell
-.\mvnw.cmd -pl api-gateway spring-boot:run
-```
-
-### Step 3: Run the Frontend
-
-Open a new terminal in the `frontend` folder and run:
-```powershell
-cd frontend
-npm install
 npm run dev
 ```
 
-Then open `http://localhost:5173` in your browser.
+This command starts:
+
+* Auth Service
+* Employee Service
+* Payroll Service
+* API Gateway
+* Frontend
+
+---
+
+## Application URLs
+
+| Service          | URL                   |
+| ---------------- | --------------------- |
+| Frontend         | http://localhost:5173 |
+| API Gateway      | http://localhost:8080 |
+| Auth Service     | http://localhost:8081 |
+| Employee Service | http://localhost:8082 |
+| Payroll Service  | http://localhost:8083 |
+
+---
 
 ## Default Admin Credentials
 
-- Username: `admin`
-- Password: `admin123`
+| Username | Password |
+| -------- | -------- |
+| admin    | admin123 |
+
+---
 
 ## API Endpoints
 
-### Auth Service (http://localhost:8081/api/auth)
-- POST `/signup` - Register new user
-- POST `/login` - Login and get JWT token
-- POST `/refresh` - Refresh JWT token
-- GET `/me` - Get current user info
+### Auth Service
 
-### Employee Service (http://localhost:8082/api)
-- GET/POST `/employees` - List/Create employees
-- GET/PUT/DELETE `/employees/{id}` - Get/Update/Delete employee
-- GET `/departments` - List departments
-- POST `/attendance/check-in/{id}` - Check in
-- POST `/attendance/check-out/{id}` - Check out
-- POST `/leaves` - Apply for leave
-- GET `/ai-insights/employee/{id}` - AI insights for employee
-- GET `/ai-insights/summary` - Global AI summary
+Base URL: `http://localhost:8081/api/auth`
 
-### Payroll Service (http://localhost:8083/api)
-- POST `/payroll/run` - Run payroll for all employees
-- GET `/payslips/employee/{id}` - Get employee payslips
-- GET `/payroll/config/{employeeId}` - Get salary config
+* `POST /signup` — Register a new user
+* `POST /login` — Login and receive a JWT token
+* `POST /refresh` — Refresh JWT token
+* `GET /me` — Get current user information
+
+### Employee Service
+
+Base URL: `http://localhost:8082/api`
+
+* `GET /employees` — List employees
+* `POST /employees` — Create employee
+* `GET /employees/{id}` — Get employee details
+* `PUT /employees/{id}` — Update employee
+* `DELETE /employees/{id}` — Delete employee
+* `GET /departments` — List departments
+* `POST /attendance/check-in/{id}` — Check in
+* `POST /attendance/check-out/{id}` — Check out
+* `POST /leaves` — Apply for leave
+* `GET /ai-insights/employee/{id}` — Employee AI insights
+* `GET /ai-insights/summary` — Global AI summary
+
+### Payroll Service
+
+Base URL: `http://localhost:8083/api`
+
+* `POST /payroll/run` — Run payroll for all employees
+* `GET /payslips/employee/{id}` — Get employee payslips
+* `GET /payroll/config/{employeeId}` — Get salary configuration
+
+---
 
 ## Troubleshooting
 
-- **Build failures**: Run `.\mvnw.cmd clean compile -DskipTests`
-- **Port conflicts**: Check that ports 8080-8083 and 5173 are available on your system.
+### npm command not recognized
+
+Restart your terminal or verify Node.js installation:
+
+```powershell
+node -v
+npm -v
+```
+
+### Build failures
+
+```powershell
+.\mvnw.cmd clean compile -DskipTests
+```
+
+### Port conflicts
+
+Ensure the following ports are available:
+
+* 5173
+* 8080
+* 8081
+* 8082
+* 8083
+
+### Backend services fail to start
+
+Verify Java installation:
+
+```powershell
+java -version
+```
+
+Verify Maven Wrapper:
+
+```powershell
+.\mvnw.cmd -v
+```
