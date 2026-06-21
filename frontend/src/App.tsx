@@ -425,9 +425,9 @@ export default function App() {
   // Render Login / Signup Form
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#070A13] px-4">
-        <div className="max-w-md w-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600"></div>
+      <div className="min-h-screen flex items-center justify-center bg-white px-4">
+  <div className="max-w-md w-full bg-white border border-slate-200 rounded-3xl p-8 shadow-xl relative overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600"></div>
           
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center p-3 bg-indigo-500/10 rounded-2xl text-indigo-400 mb-3">
@@ -446,12 +446,12 @@ export default function App() {
           {!isSignup ? (
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label className="block text-slate-300 text-xs font-semibold uppercase tracking-wider mb-2">Username or Email</label>
+                <label className="block text-slate-700 text-xs font-semibold uppercase tracking-wider mb-2">Username or Email</label>
                 <input 
                   type="text" 
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
                   placeholder="Enter username..." 
                   required
                 />
@@ -539,9 +539,9 @@ export default function App() {
           <div className="mt-6 border-t border-slate-800/80 pt-6">
             <span className="block text-center text-xs text-slate-500 font-semibold mb-3">QUICK LOG IN OPTIONS</span>
             <div className="grid grid-cols-3 gap-2">
-              <button onClick={() => { demoLogin('admin'); setIsSignup(false); }} className="px-2 py-1.5 bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all">Admin Profile</button>
-              <button onClick={() => { demoLogin('manager'); setIsSignup(false); }} className="px-2 py-1.5 bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all">Manager Profile</button>
-              <button onClick={() => { demoLogin('employee'); setIsSignup(false); }} className="px-2 py-1.5 bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all">Employee Portal</button>
+              <button onClick={() => { demoLogin('admin'); setIsSignup(false); }} className="px-2 py-1.5 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 rounded-lg text-xs font-medium text-slate-700 hover:text-slate-900 transition-all">Admin Profile</button>
+              <button onClick={() => { demoLogin('manager'); setIsSignup(false); }} className="px-2 py-1.5 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 rounded-lg text-xs font-medium text-slate-700 hover:text-slate-900 transition-all">Manager Profile</button>
+              <button onClick={() => { demoLogin('employee'); setIsSignup(false); }} className="px-2 py-1.5 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 rounded-lg text-xs font-medium text-slate-700 hover:text-slate-900 transition-all">Employee Portal</button>
             </div>
           </div>
 
@@ -560,7 +560,7 @@ export default function App() {
 
   // Active views content generators
   return (
-    <div className="min-h-screen flex bg-[#070A13]">
+    <div className="min-h-screen flex bg-slate-50">
       
       {/* SIDEBAR */}
       <aside className="w-64 bg-slate-950/80 border-r border-slate-900 flex flex-col justify-between select-none">
